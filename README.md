@@ -52,7 +52,7 @@ update(book, shelf)
 
 * book: `<Object>` containing at minimum an `id` attribute
 * shelf: `<String>` contains one of ["wantToRead", "currentlyReading", "read"]
-> _that made a problem with the none selected books because every book has a shelf trying to deselect a book -update the shelf in the api to "none"- erases it from the API and you have to change token to restore it I thought this was a problem with the API but the logic works in my code
+> That made a problem with the none selected books because every book has a shelf trying to deselect a book -update the shelf in the api to "none"- erases it from the API and you have to change token to restore it I thought this was a problem with the API but the logic works in my code
 
 * Returns a Promise which resolves to a JSON object containing the response data of the POST request
 
