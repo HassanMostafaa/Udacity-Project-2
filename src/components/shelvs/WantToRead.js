@@ -26,20 +26,30 @@ class WantToRead extends Component {
                     layout
                   >
                     <div className="book-top">
-                      <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.5, duration: 1 }}
-                        className="book-cover"
-                        style={{
-                          width: 128,
-                          height: 193,
-                          backgroundImage: `url(${book.imageLinks.thumbnail})`,
-                        }}
-                        onClick={() => {
-                          window.location.href = `${book.previewLink}`;
-                        }}
-                      ></motion.div>
+                      {book.imageLinks ? (
+                        <div
+                          onClick={() => {
+                            window.location.href = `${book.previewLink}`;
+                          }}
+                          className="book-cover"
+                          style={{
+                            width: 128,
+                            height: 193,
+                            backgroundImage: `url(${book.imageLinks.smallThumbnail})`,
+                          }}
+                        ></div>
+                      ) : (
+                        <div
+                          className="book-cover"
+                          style={{
+                            width: 128,
+                            height: 193,
+                            backgroundPosition: "center",
+                            backgroundSize: "cover",
+                            backgroundImage: `url(https://www.atehno.md/theme/images/no_image.png)`,
+                          }}
+                        ></div>
+                      )}
                       <div className="book-shelf-changer">
                         <select
                           onChange={(event) => {
@@ -52,43 +62,43 @@ class WantToRead extends Component {
                           </option>
                           {book.shelf === "currentlyReading" ? (
                             <option value="currentlyReading">
-                              &#10003; Currently Reading
+                              ✔️ Currently Reading &nbsp;
                             </option>
                           ) : (
                             <option value="currentlyReading">
-                              Currently Reading
+                              Currently Reading &nbsp;
                             </option>
                           )}
                           {book.shelf === "wantToRead" ? (
-                            <option value="wantToRead">
-                              &#10003; Want to Read
-                            </option>
+                            <option value="wantToRead">✔️ Want to Read</option>
                           ) : (
                             <option value="wantToRead">Want to Read</option>
                           )}
                           {book.shelf === "read" ? (
-                            <option value="read">&#10003; Read</option>
+                            <option value="read">✔️ Read</option>
                           ) : (
                             <option value="read">Read</option>
                           )}
                           {book.shelf !== "currentlyReading" ||
                           book.shekf !== "read" ||
                           book.shelf !== "wantToRead" ? (
-                            <option value="none" disabled>
-                              None
-                            </option>
+                            <option value="none">None</option>
                           ) : (
-                            <option value="none">&#10003; None</option>
+                            <option value="none">✔️ None</option>
                           )}
                         </select>
                       </div>
                     </div>
                     <div className="book-title">{book.title}</div>
-                    <div className="book-authors">
-                      {book.authors.map((author, index) => (
-                        <div key={index}>- {author}</div>
-                      ))}
-                    </div>
+                    {book.authors ? (
+                      <div className="book-authors">
+                        {book.authors.map((author, index) => (
+                          <div key={index}>- {author}</div>
+                        ))}
+                      </div>
+                    ) : (
+                      ""
+                    )}
                   </motion.div>
                 )
             )}

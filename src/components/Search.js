@@ -12,28 +12,38 @@ class Search extends Component {
   state = {
     query: "",
     Books: [],
+    searchResult: [],
+    emptyQuery: "",
+  };
+
+  updateQuery = async (query) => {
+    this.setState(() => ({
+      query: query,
+    }));
+    await BooksAPI.search(query).then((data) => {
+      if (data) {
+        if (!data.error) {
+          this.setState(() => ({ searchResult: data, emptyQuery: "" }));
+        } else {
+          this.setState(() => ({
+            searchResult: [],
+            emptyQuery: data.error,
+          }));
+        }
+      }
+    });
   };
 
   componentDidMount() {
     BooksAPI.getAll().then((Books) => {
-      this.setState(() => ({
-        Books,
-      }));
+      this.setState({ Books });
     });
   }
 
-  updateQuery = (query) => {
-    this.setState(() => ({
-      query: query,
-    }));
-  };
+  addBook() {
+    alert("Book Added");
+  }
   render() {
-    const searchResult = this.state.Books.filter(
-      (res) =>
-        res.authors[0].toLowerCase().includes(this.state.query.toLowerCase()) ||
-        res.title.toLowerCase().includes(this.state.query.toLowerCase())
-    );
-
     return (
       <div>
         <div className="search-books">
@@ -53,6 +63,7 @@ class Search extends Component {
             </div>
           </div>
           <div className="search-books-results">
+            {this.state.query !== "" && <h2>{this.state.emptyQuery}</h2>}
             {this.state.query === "" ? (
               <div>
                 <h3>We have a huge library of books for the following :</h3>
@@ -82,8 +93,7 @@ class Search extends Component {
               </div>
             ) : (
               <ol className="books-grid">
-                {searchResult.length < 1 && <div>No Results</div>}
-                {searchResult.map((book) => (
+                {this.state.searchResult.map((book) => (
                   <motion.div
                     className="book"
                     key={book.id}
@@ -91,63 +101,98 @@ class Search extends Component {
                     whileHover={{ opacity: 1 }}
                   >
                     <div className="book-top">
-                      <div
-                        className="book-cover"
-                        style={{
-                          width: 128,
-                          height: 193,
-                          backgroundImage: `url(${book.imageLinks.thumbnail})`,
-                        }}
-                      ></div>
+                      {book.imageLinks ? (
+                        <div
+                          onClick={() => {
+                            window.location.href = `${book.previewLink}`;
+                          }}
+                          className="book-cover"
+                          style={{
+                            width: 128,
+                            height: 193,
+                            backgroundImage: `url(${book.imageLinks.smallThumbnail})`,
+                          }}
+                        ></div>
+                      ) : (
+                        <div
+                          className="book-cover"
+                          style={{
+                            width: 128,
+                            height: 193,
+                            backgroundPosition: "center",
+                            backgroundSize: "cover",
+                            backgroundImage: `url(https://www.atehno.md/theme/images/no_image.png)`,
+                          }}
+                        ></div>
+                      )}
                       <div className="book-shelf-changer">
                         <select
                           onChange={(event) => {
-                            console.log(event.target.value);
                             this.props.changeShelvs(book, event.target.value);
+                            this.addBook();
                           }}
                           value="move"
                         >
                           <option disabled value="move">
                             Move to...
                           </option>
-                          {book.shelf === "currentlyReading" ? (
-                            <option value="currentlyReading">
-                              &#10003; Currently Reading
-                            </option>
-                          ) : (
-                            <option value="currentlyReading">
-                              Currently Reading
-                            </option>
-                          )}
-                          {book.shelf === "wantToRead" ? (
-                            <option value="wantToRead">
-                              &#10003; Want to Read
-                            </option>
-                          ) : (
-                            <option value="wantToRead">Want to Read</option>
-                          )}
-                          {book.shelf === "read" ? (
-                            <option value="read">&#10003; Read</option>
-                          ) : (
-                            <option value="read">Read</option>
-                          )}
-                          {book.shelf === "none" ? (
-                            <option value="none"> &#10003; None</option>
-                          ) : (
-                            <option value="none" disabled>
-                              None
-                            </option>
-                          )}
+
+                          <option value="currentlyReading">
+                            {this.state.Books.map((shelfedBook) => {
+                              if (shelfedBook.id === book.id) {
+                                if (shelfedBook.shelf === "currentlyReading") {
+                                  return "✔️ ";
+                                } else {
+                                  return "";
+                                }
+                              } else {
+                                return false;
+                              }
+                            })}
+                            Currently Reading &nbsp;
+                          </option>
+                          <option value="wantToRead">
+                            {this.state.Books.map((shelfedBook) => {
+                              if (shelfedBook.id === book.id) {
+                                if (shelfedBook.shelf === "wantToRead") {
+                                  return "✔️ ";
+                                } else {
+                                  return "";
+                                }
+                              } else {
+                                return false;
+                              }
+                            })}
+                            Want To Read
+                          </option>
+                          <option value="read">
+                            {this.state.Books.map((shelfedBook) => {
+                              if (shelfedBook.id === book.id) {
+                                if (shelfedBook.shelf === "read") {
+                                  return "✔️ ";
+                                } else {
+                                  return "";
+                                }
+                              } else {
+                                return false;
+                              }
+                            })}
+                            Read
+                          </option>
+                          <option value="none">None</option>
                         </select>
                       </div>
                     </div>
                     <div className="book-title">{book.title}</div>
-                    <div className="book-authors">
-                      {" "}
-                      {book.authors.map((author, index) => (
-                        <div key={index}>- {author}</div>
-                      ))}
-                    </div>
+                    {book.authors ? (
+                      <div className="book-authors">
+                        {book.authors.map((author, index) => (
+                          <div key={index}>- {author}</div>
+                        ))}
+                      </div>
+                    ) : (
+                      ""
+                    )}
                   </motion.div>
                 ))}
               </ol>

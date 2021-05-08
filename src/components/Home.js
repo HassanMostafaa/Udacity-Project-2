@@ -20,14 +20,15 @@ class Home extends Component {
   }
 
   changeShelvs = async (book, val) => {
-    await BooksAPI.update(book, val).then(() => {
-      BooksAPI.getAll().then((Books) => {
-        this.setState(() => ({
-          Books,
-        }));
-      });
+    await BooksAPI.update(book, val);
+
+    BooksAPI.getAll().then((Books) => {
+      this.setState(() => ({
+        Books,
+      }));
     });
   };
+
   render() {
     return (
       <div>
