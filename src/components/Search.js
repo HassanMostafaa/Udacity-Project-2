@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import * as BooksAPI from "../BooksAPI";
 import PropTypes from "prop-types";
 import { motion } from "framer-motion";
+import swal from "sweetalert";
 
 class Search extends Component {
   static propTypes = {
@@ -27,7 +28,7 @@ class Search extends Component {
         } else {
           this.setState(() => ({
             searchResult: [],
-            emptyQuery: data.error,
+            emptyQuery: data.error + ": No Results",
           }));
         }
       }
@@ -40,8 +41,21 @@ class Search extends Component {
     });
   }
 
-  addBook() {
-    alert("Book Added");
+  addBook(event) {
+    if (event.target.value !== "none") {
+      swal({
+        title: "Book Added!",
+        text: `Book Successfuly Added to ${event.target.value} Shelf Visit Home Page to Check it out`,
+        icon: "success",
+        defeat: true,
+      });
+    } else {
+      swal({
+        title: "Book Removed!",
+        icon: "success",
+        button: true,
+      });
+    }
   }
   render() {
     return (
@@ -58,12 +72,12 @@ class Search extends Component {
                 onChange={(e) => {
                   this.updateQuery(e.target.value);
                 }}
-                placeholder="Search by Title or Author..."
+                placeholder="Search by Title or Topic..."
               />
             </div>
           </div>
           <div className="search-books-results">
-            {this.state.query !== "" && <h2>{this.state.emptyQuery}</h2>}
+            {this.state.query !== "" && <h3>{this.state.emptyQuery}</h3>}
             {this.state.query === "" ? (
               <div>
                 <h3>We have a huge library of books for the following :</h3>
@@ -129,7 +143,7 @@ class Search extends Component {
                         <select
                           onChange={(event) => {
                             this.props.changeShelvs(book, event.target.value);
-                            this.addBook();
+                            this.addBook(event);
                           }}
                           value="move"
                         >
