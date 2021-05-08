@@ -15,7 +15,6 @@ class Search extends Component {
     Books: [],
     searchResult: [],
     emptyQuery: "",
-    returned: "",
   };
 
   updateQuery = async (query) => {
@@ -39,6 +38,7 @@ class Search extends Component {
   componentDidMount() {
     BooksAPI.getAll().then((Books) => {
       this.setState({ Books });
+      console.log(this.state.Books);
     });
   }
 
@@ -185,6 +185,14 @@ class Search extends Component {
                               }
                             })}
                             Read
+                          </option>
+
+                          <option value="none">
+                            {this.state.Books.some(
+                              (thisbook) => thisbook["id"] === book.id
+                            )
+                              ? "None"
+                              : "✔️ None"}
                           </option>
                         </select>
                       </div>

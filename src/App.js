@@ -8,13 +8,11 @@ import "./App.css";
 class BooksApp extends React.Component {
   state = {
     query: "",
-    searchResult: [],
+    result: [],
   };
 
   changeShelvs = async (book, val) => {
-    await BooksAPI.update(book, val).then((res) =>
-      this.setState({ searchResult: res })
-    );
+    await BooksAPI.update(book, val);
     BooksAPI.getAll().then((Books) => {
       this.setState({ Books });
     });
@@ -30,7 +28,10 @@ class BooksApp extends React.Component {
             </Route>
 
             <Route path="/search">
-              <Search changeShelvs={this.changeShelvs} />
+              <Search
+                changeShelvs={this.changeShelvs}
+                resault={this.state.result}
+              />
             </Route>
           </Switch>
         </Router>
