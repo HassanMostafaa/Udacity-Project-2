@@ -96,14 +96,6 @@ class Search extends Component {
                   Singh, Swimming, Tale, Thrun, Time, Tolstoy , Travel,
                   Ultimate, Virtual Reality, Web Development, iOS
                 </p>
-                provided by Udacity's API{" "}
-                <a
-                  href="https://reactnd-books-api.udacity.com"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Here
-                </a>
               </div>
             ) : (
               <ol className="books-grid">
