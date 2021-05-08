@@ -8,14 +8,15 @@ import "./App.css";
 class BooksApp extends React.Component {
   state = {
     query: "",
+    searchResult: [],
   };
 
   changeShelvs = async (book, val) => {
-    await BooksAPI.update(book, val);
+    await BooksAPI.update(book, val).then((res) =>
+      this.setState({ searchResult: res })
+    );
     BooksAPI.getAll().then((Books) => {
-      this.setState(() => ({
-        Books,
-      }));
+      this.setState({ Books });
     });
   };
 

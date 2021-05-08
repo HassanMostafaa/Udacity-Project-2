@@ -15,6 +15,7 @@ class Search extends Component {
     Books: [],
     searchResult: [],
     emptyQuery: "",
+    returned: "",
   };
 
   updateQuery = async (query) => {
@@ -67,6 +68,7 @@ class Search extends Component {
             </Link>
             <div className="search-books-input-wrapper">
               <input
+                autoFocus
                 type="text"
                 value={this.state.query}
                 onChange={(e) => {
@@ -142,7 +144,6 @@ class Search extends Component {
                           <option disabled value="move">
                             Move to...
                           </option>
-
                           <option value="currentlyReading">
                             {this.state.Books.map((shelfedBook) => {
                               if (shelfedBook.id === book.id) {
@@ -185,7 +186,6 @@ class Search extends Component {
                             })}
                             Read
                           </option>
-                          <option value="none">None</option>
                         </select>
                       </div>
                     </div>
