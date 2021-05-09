@@ -49,12 +49,14 @@ To get started:
 ## Project Functionality
 
 * Store Your Books in the home screen's shelves and Move them around as you Like through the drop down menu on the bottom right on every book, or by clicking on `none` option you can remove the book from the shelves
+
 ![dropDownMenu](dropDownMenu.png)
 
 * By clicking on the Plus(+) sign on the right bottom corner of your screen you will directed to the search page where you type name of the book or the topic you want to search for and you will be presented with top 20 of the most matched Books
 > check the SEARCH_TERMS.md for search topics
 
 * In the search Page you can add any Book from the search results by choosing a shelf from the drop down menu on the bottom right on every book
+
 ![searchMenu](searchMenu.png)
 
 
