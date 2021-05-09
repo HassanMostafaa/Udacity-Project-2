@@ -1,31 +1,60 @@
 # MyReads Project
 
-## TL;DR
-
 To get started:
 
 * install all project dependencies with `npm install`
 * start the development server with `npm start`
 
 ## What You're Getting
-```bash
-├── CONTRIBUTING.md
-├── README.md - This file.
-├── SEARCH_TERMS.md # The whitelisted short collection of available search terms for you to use with your app.
-├── package.json # npm package manager file. It's unlikely that you'll need to modify this.
-├── public
-│   ├── favicon.ico # React Icon, You may change if you wish.
-│   └── index.html # DO NOT MODIFY
-└── src
-    ├── App.css # Styles for your app. Feel free to customize this as you desire.
-    ├── App.js # This is the root of your app. Contains static HTML right now.
-    ├── App.test.js # Used for testing. Provided with Create React App. Testing is encouraged, but not required.
-    ├── BooksAPI.js # A JavaScript API for the provided Udacity backend. Instructions for the methods are below.
-    ├── icons # Helpful images for your app. Use at your discretion.
-    │   ├── add.svg
-    │   ├── arrow-back.svg
-    │   └── arrow-drop-down.svg
-    ├── index.css # Global styles. You probably won't need to change anything here.
-    └── index.js # You should not need to modify this file. It is used for DOM rendering only.
 ```
+"bash"
+
+│   .gitignore
+│   package-lock.json
+│   package.json
+│   README.md
+│   SEARCH_TERMS.md
+│   yarn.lock
+│
+├───public
+│       favicon.ico
+│       index.html
+│
+└───src
+    │   App.css
+    │   App.js
+    │   App.test.js
+    │   BooksAPI.js
+    │   index.css
+    │   index.js
+    │
+    ├───components
+    │   │   Home.js
+    │   │   Search.js
+    │   │
+    │   └───shelvs
+    │           CurrentlyReading.js
+    │           Read.js
+    │           WantToRead.js
+    │
+    └───icons
+            add.svg
+            arrow-back.svg
+            arrow-drop-down.svg
+```
+## Project description 
+
+* It's a Book tracking App to save your `currently Reading Books` , `Want to Read` and `read` Books, You can also search for new book in the provided Udacity's Books Library API with a huge variety of Books and topics 
+
+## Project Functionality
+
+* Store Your Books in the home screen's shelves and Move them around as you Like through the drop down menu on the bottom right on every book, or by clicking on `none` option you can remove the book from the shelves
+![dropDownMenu](dropDownMenu.png)
+
+* By clicking on the Plus(+) sign on the right bottom corner of your screen you will directed to the search page where you type name of the book or the topic you want to search for and you will be presented with top 20 of the most matched Books
+> check the SEARCH_TERMS.md for search topics
+
+* In the search Page you can add any Book from the search results by choosing a shelf from the drop down menu on the bottom right on every book
+![searchMenu](searchMenu.png)
+
 
