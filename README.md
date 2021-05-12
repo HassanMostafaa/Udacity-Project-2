@@ -44,7 +44,7 @@ To get started:
 ```
 ## Project description 
 
-* It's a Book tracking App to save your `currently Reading Books` , `Want to Read` and `read` Books, You can also search for new book in the provided Udacity's Books Library API with a huge variety of Books and topics 
+* It's a Book tracking App to save your `currently Reading` , `Want to Read` and `read` Books, You can also search for new book in the provided Udacity's Books Library API with a huge variety of Books and topics 
 
 ## Project Functionality
 
